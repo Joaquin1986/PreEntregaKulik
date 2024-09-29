@@ -1,4 +1,5 @@
 const passport = require('passport');
+const { UserManager } = require('../controllers/UserManager');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const JwtStrategy = require('passport-jwt').Strategy;
 const dotenv = require('dotenv').config();
@@ -32,7 +33,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await userService.getById(id);
+        const user = await UserManager.getUserById(id);
         return done(null, user);
     } catch (error) {
         return done(error);
